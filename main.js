@@ -9,7 +9,7 @@ let encodedStr = Buffer.from(str).toString('base64');
 
 fs.writeFileSync('base64.json', `{"encrypted": "${encodedStr}"}`);
 
-exec("python3 your_python_script.py", (error, stdout, stderr) => {
+exec("python3 main.py", (error, stdout, stderr) => {
     if (error) {
         console.log(`error: ${error.message}`);
         return;
