@@ -2,15 +2,11 @@ import sys
 import math
 import json
 import base64
-
-def decode_base64(encoded_str):
-    return base64.b64decode(encoded_str).decode('utf-8')
-
 with open('base64.json', 'r') as file:
     data = json.load(file)
     base64_string = data['encrypted']
-    rot13_string = decode_base64(base64_string)
-
+rot13_string = base64.b64decode(base64_string).decode('utf-8')
+cryptogram = rot13_string
 def w(): return 'w'
 def q(): return 'q'
 def a(): return 'a'
@@ -38,20 +34,15 @@ def l(): return 'l'
 def v(): return 'v'
 def t(): return 't'
 def a(): return ' '
-
 cryptogram = u() + r() + y() + y() + b() + a() + j() + b() + e() + y() + q()
-
 class BaseCipher:
     def encode(self, text):
         raise NotImplementedError()
-
     def decode(self, text):
         raise NotImplementedError()
-
 class CaesarCipher(BaseCipher):
     def __init__(self, shift):
         self.shift = shift
-
     def encode_decode(self, text, operation):
         result = []
         for char in text:
@@ -61,59 +52,42 @@ class CaesarCipher(BaseCipher):
             else:
                 result.append(char)
         return ''.join(result)
-
     def encode(self, text):
         return self.encode_decode(text, 1)
-
     def decode(self, text):
         return self.encode_decode(text, -1)
-
 class CipherWrapper:
     def __init__(self, cipher):
         self.cipher = cipher
-
     def encode(self, text):
         return self.cipher.encode(text)
-
     def decode(self, text):
         return self.cipher.decode(text)
-
 class RedundantClass:
     def do_something(self, func, value):
         return func(value)
-
 def wrapper_function(func, value):
     return func(value)
-
 def superfluous_function(func, value):
     return wrapper_function(func, value)
-
 def create_shift():
     return -13
-
 def create_caesar_cipher(shift):
     return CaesarCipher(shift)
-
 def create_cipher_wrapper(caesar_cipher):
     return CipherWrapper(caesar_cipher)
-
 def decode_cryptogram(cipher_wrapper, cryptogram):
     return cipher_wrapper.decode(cryptogram)
-
 def use_unnecessary_instance(decoded_message):
     unnecessary_instance = RedundantClass()
     return unnecessary_instance.do_something(lambda x: x, decoded_message)
-
 def use_redundant_instance(decoded_message):
     redundant_instance = RedundantClass()
     return redundant_instance.do_something(lambda x: x, decoded_message)
-
 def use_superfluous_function(decoded_message):
     return superfluous_function(lambda x: x, decoded_message)
-
 def write_to_stdout(decoded_message):
     sys.stdout.write(decoded_message + "\n")
-    
 def yes():
     shift = create_shift()
     caesar_cipher = create_caesar_cipher(shift)
@@ -123,6 +97,5 @@ def yes():
     decoded_message = use_redundant_instance(decoded_message)
     decoded_message = use_superfluous_function(decoded_message)
     write_to_stdout(decoded_message)
-
 if __name__ == "__main__":
     yes()
