@@ -87,7 +87,8 @@ def use_redundant_instance(decoded_message):
 def use_superfluous_function(decoded_message):
     return superfluous_function(lambda x: x, decoded_message)
 def write_to_stdout(decoded_message):
-    sys.stdout.write(decoded_message + "\n")
+    with open('output.json', 'w') as file:
+        json.dump({'decoded': decoded_message}, file)
 def yes():
     shift = create_shift()
     caesar_cipher = create_caesar_cipher(shift)
