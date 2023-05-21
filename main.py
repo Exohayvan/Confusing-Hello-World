@@ -1,5 +1,15 @@
 import sys
 import math
+import json
+import base64
+
+def decode_base64(encoded_str):
+    return base64.b64decode(encoded_str).decode('utf-8')
+
+with open('base64.json', 'r') as file:
+    data = json.load(file)
+    base64_string = data['encrypted']
+    rot13_string = decode_base64(base64_string)
 
 def w(): return 'w'
 def q(): return 'q'
